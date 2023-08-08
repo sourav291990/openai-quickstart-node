@@ -17,6 +17,7 @@ export default async function (req, res) {
 
   const animal = req.body.animal || '';
   if (animal.trim().length === 0) {
+  debugger;
     res.status(400).json({
       error: {
         message: "Please enter a valid animal",
@@ -49,6 +50,7 @@ export default async function (req, res) {
 }
 
 function generatePrompt(animal) {
+  debugger;
   const capitalizedAnimal =
     animal[0].toUpperCase() + animal.slice(1).toLowerCase();
   return `Suggest three names for an animal that is a superhero.

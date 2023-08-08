@@ -5,6 +5,7 @@ import styles from "./index.module.css";
 export default function Home() {
   const [animalInput, setAnimalInput] = useState("");
   const [result, setResult] = useState();
+  const [modelResult, setModelResult] = useState("");
 
   async function onSubmit(event) {
     event.preventDefault();
@@ -24,11 +25,23 @@ export default function Home() {
 
       setResult(data.result);
       setAnimalInput("");
-    } catch(error) {
+    } catch (error) {
       // Consider implementing your own error handling logic here
       console.error(error);
       alert(error.message);
     }
+  }
+
+  async function getModelClickHandler(event){
+    debugger;
+    const response = await fetch("/api/model", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    var res = await response.json();
+    setModelResult(res)
   }
 
   return (
@@ -51,7 +64,12 @@ export default function Home() {
           />
           <input type="submit" value="Generate names" />
         </form>
+
         <div className={styles.result}>{result}</div>
+        <div>
+          <input type="button" onClick={getModelClickHandler} value="Get Models" />
+          <div>{modelResult}</div>
+        </div>
       </main>
     </div>
   );
